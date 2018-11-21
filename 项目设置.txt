@@ -1,0 +1,67 @@
+通用信息设置
+
+事物：
+  在controller中添加 @EnableTransactionManagement
+  在service层中类添加 @Transactional(readOnly=true)
+  增删改添加@Transactiona(propagation=Propagation.REQUIRED,isolation=Isolation.DEFAULT,readOnly=false)
+    Propagation.REQUIRED ：有事务就处于当前事务中，没事务就创建一个事务
+    isolation=Isolation.DEFAULT：事务数据库的默认隔离级别
+    readOnly=false：可写 针对 增删改操作
+Model:
+    在本项目中页面跳转使用ModelAndView，特殊情况例外。
+
+关于Mapper
+    在编写sql语句的过程中，如果generator_mysql能用的直接拿来用
+格式约束
+    /user   get 获取所有的user
+    /user   delete 删除所有的user
+    /user   post    创建新的user
+    /user/id/1  get 获取id是1的user
+    /user/id/1  delete 删除id是1的user
+    /user/id/1  put 更新id是1的user
+    /user/href/topage     其他不相干的界面全部加href
+    如果返回的是message就用 user/message/login
+    如果表示跳转的就用   user/href/login
+session 失效
+    //       如果session失效要跳到首页重新登录，这个批量处理，不在这里验证
+消息约定:
+    missing 前置条件不足
+    success 成功
+    failure 失败
+    exception 异常
+关于paghelper的记录
+    个人在使用过程中发现pagehelper出了问题，无法解决，弃用。老老实实分页，不再使用该插件。
+关于分页的记录
+    1.1 在页面中插入分页的div
+    1.2 vue的PageNumberList属性类
+    1.3 vue的search 属性类 - update 具体的搜索属性
+    1.4 methodtoPage 方法
+    1.5 methodtoPageUpdate 方法 - update 具体的调用方法
+    1.6 list 方法 - update - update 具体的数据
+    2.1 PageNumber类 - 该类用于页码计算
+    2.2 memonto包 - 在controller层，用参数捞Service的数据，而不是通过返回值。
+    2.3  controller
+         PageNumberCareTaker pageNumberCareTaker = new PageNumberCareTaker();
+         list = userService.listUser(user,1, pageNumberCareTaker); update 传入具体的类，
+         PageNumber pageNumber = new PageNumber();
+         pageNumber.setMemento(pageNumberCareTaker.getMemento());
+         Map map = new HashMap();
+         map.put("list", list);
+         map.put("pageNumber", pageNumber);
+    2.4 service
+        List<User> list = new ArrayList<>();
+        int pageNum = (user.getThePage() - 1) * 10; update 具体类的页码
+        user.setPageStartNum(pageNum);
+        user.setPageSize(10);
+        list = userMapper.listUser(user);  update 具体的类
+        PageNumber pageNumber = new PageNumber(user.getThePage(), userMapper.countUser(user)); update 传入当前页码与总数
+        pageNumberCareTaker.setMemento(pageNumber.createMemento());
+    2.5 mapper 的
+        <if test="null != pageStartNum and null != pageSize">
+           limit #{pageStartNum}, #{pageSize}
+        </if>
+
+
+
+
+

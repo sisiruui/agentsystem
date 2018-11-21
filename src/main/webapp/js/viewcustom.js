@@ -1,0 +1,3 @@
+$(function(){
+	mover(1);
+})

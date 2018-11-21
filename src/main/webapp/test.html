@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" src="/js/login.js"></script>
+    <script src="/publicjs/vue.js"></script>
+    <script src="/publicjs/vue-router.js"></script>
+    <script src="/publicjs/vue-resource.min.js"></script>
+    <script src="/publicjs/axios.min.js"></script>
+
+</head>
+<body>
+<div id="app">
+
+    <table>
+
+        {{ items }}
+
+        <tr v-for="item in items">
+            <td>{{ item.configType }}</td>
+            <td>{{ item.configTypeName }}</td>
+            <td>{{ item.configTypeValue }}</td>
+        </tr>
+
+    </table>
+
+</div>
+
+
+<script>
+    var v = new Vue({
+        el: '#app',
+        data: {
+            message: "message",
+            items: []
+        },
+        methods: {
+            created() {
+                var self = this;
+                axios.get('/systemconfig/financialjson')
+                    .then(function (response) {
+                        self.items = JSON.parse(response.data);
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+            }
+
+        }
+    })
+    v.created()
+
+
+</script>
+
+</body>
+</html>

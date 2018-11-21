@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="ssru.myw.agentsystem.dao.CustomsMapper" >
+  <resultMap id="CustomsDefaultResultMap" type="ssru.myw.agentsystem.entity.Customs" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="agentId" property="agentId" jdbcType="BIGINT" />
+    <result column="agentName" property="agentName" jdbcType="VARCHAR" />
+    <result column="customName" property="customName" jdbcType="VARCHAR" />
+    <result column="customType" property="customType" jdbcType="INTEGER" />
+    <result column="customTypeName" property="customTypeName" jdbcType="VARCHAR" />
+    <result column="siteUrl" property="siteUrl" jdbcType="VARCHAR" />
+    <result column="customStatus" property="customStatus" jdbcType="INTEGER" />
+    <result column="bossName" property="bossName" jdbcType="VARCHAR" />
+    <result column="cardType" property="cardType" jdbcType="INTEGER" />
+    <result column="cardTypeName" property="cardTypeName" jdbcType="VARCHAR" />
+    <result column="cardNum" property="cardNum" jdbcType="VARCHAR" />
+    <result column="companyTel" property="companyTel" jdbcType="VARCHAR" />
+    <result column="companyFax" property="companyFax" jdbcType="VARCHAR" />
+    <result column="regDatetime" property="regDatetime" jdbcType="TIMESTAMP" />
+    <result column="country" property="country" jdbcType="VARCHAR" />
+    <result column="province" property="province" jdbcType="VARCHAR" />
+    <result column="city" property="city" jdbcType="VARCHAR" />
+    <result column="area" property="area" jdbcType="VARCHAR" />
+    <result column="companyAddress" property="companyAddress" jdbcType="VARCHAR" />
+    <result column="agentCode" property="agentCode" jdbcType="VARCHAR" />
+    <result column="memo" property="memo"  />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, agentId, agentName, customName, customType, customTypeName, siteUrl, customStatus,
+    bossName, cardType, cardTypeName, cardNum, companyTel, companyFax, regDatetime, country,
+    province, city, area, companyAddress, agentCode, memo
+  </sql>
+
+  <!--countCustoms-->
+  <select id="countCustoms" parameterType="ssru.myw.agentsystem.entity.Customs"
+          resultType="Integer">
+  select
+  count(1)
+  from as_customs
+    <where>
+      <if test="id!=null"> and id=#{id} </if>
+      <if test="agentId!=null"> and agentId=#{agentId} </if>
+      <if test="agentName!=null"> and agentName=#{agentName} </if>
+      <if test="customName!=null"> and customName like concat('%',#{customName},'%')     </if>
+      <if test="customType!=null"> and customType=#{customType} </if>
+      <if test="customTypeName!=null"> and customTypeName=#{customTypeName} </if>
+      <if test="siteUrl!=null"> and siteUrl=#{siteUrl} </if>
+      <if test="customStatus!=null"> and customStatus=#{customStatus} </if>
+      <if test="bossName!=null"> and bossName=#{bossName} </if>
+      <if test="cardType!=null"> and cardType=#{cardType} </if>
+      <if test="cardTypeName!=null"> and cardTypeName=#{cardTypeName} </if>
+      <if test="cardNum!=null"> and cardNum=#{cardNum} </if>
+      <if test="companyTel!=null"> and companyTel=#{companyTel} </if>
+      <if test="companyFax!=null"> and companyFax=#{companyFax} </if>
+      <if test="regDatetime!=null"> and regDatetime=#{regDatetime} </if>
+      <if test="country!=null"> and country=#{country} </if>
+      <if test="province!=null"> and province=#{province} </if>
+      <if test="city!=null"> and city=#{city} </if>
+      <if test="area!=null"> and area=#{area} </if>
+      <if test="companyAddress!=null"> and companyAddress=#{companyAddress} </if>
+      <if test="memo!=null"> and memo=#{memo} </if>
+      <if test="agentCode!=null"> and agentCode=#{agentCode} </if>
+    </where>
+
+  </select>
+
+  <select id="listCustoms" parameterType="ssru.myw.agentsystem.entity.Customs"
+          resultMap="CustomsDefaultResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from as_customs
+    <where>
+      <if test="id!=null"> and id=#{id} </if>
+      <if test="agentId!=null"> and agentId=#{agentId} </if>
+      <if test="agentName!=null"> and agentName=#{agentName} </if>
+      <if test="customName!=null"> and customName like concat('%',#{customName},'%')     </if>
+      <if test="customType!=null"> and customType=#{customType} </if>
+      <if test="customTypeName!=null"> and customTypeName=#{customTypeName} </if>
+      <if test="siteUrl!=null"> and siteUrl=#{siteUrl} </if>
+      <if test="customStatus!=null"> and customStatus=#{customStatus} </if>
+      <if test="bossName!=null"> and bossName=#{bossName} </if>
+      <if test="cardType!=null"> and cardType=#{cardType} </if>
+      <if test="cardTypeName!=null"> and cardTypeName=#{cardTypeName} </if>
+      <if test="cardNum!=null"> and cardNum=#{cardNum} </if>
+      <if test="companyTel!=null"> and companyTel=#{companyTel} </if>
+      <if test="companyFax!=null"> and companyFax=#{companyFax} </if>
+      <if test="regDatetime!=null"> and regDatetime=#{regDatetime} </if>
+      <if test="country!=null"> and country=#{country} </if>
+      <if test="province!=null"> and province=#{province} </if>
+      <if test="city!=null"> and city=#{city} </if>
+      <if test="area!=null"> and area=#{area} </if>
+      <if test="companyAddress!=null"> and companyAddress=#{companyAddress} </if>
+      <if test="memo!=null"> and memo=#{memo} </if>
+      <if test="agentCode!=null"> and agentCode=#{agentCode} </if>
+    </where>
+    order by id desc
+    <if test="pageStartNum!=null and pageSize!=null">
+      limit #{pageStartNum},#{pageSize};
+    </if>
+
+  </select>
+  <!-- 添加 -->
+  <insert id="saveCustoms"  parameterType="ssru.myw.agentsystem.entity.Customs">
+		insert into as_customs 	(id, agentId, 	agentName, 	customName,
+	customType, customTypeName, 	siteUrl, 	customStatus, 	bossName,
+	cardType, 	cardTypeName, 	cardNum, 	companyTel, 	companyFax,
+	regDatetime, 	country, 	province, 	city, 	area, 	companyAddress, 	memo,
+	agentCode	)values(null,#{agentId},#{agentName},#{customName},
+	#{customType},#{customTypeName},	#{siteUrl},#{customStatus},#{bossName},
+	#{cardType},#{cardTypeName},#{cardNum},#{companyTel},#{companyFax},
+	#{regDatetime},#{country},#{province},#{city},#{area},#{companyAddress},#{memo}
+	,#{agentCode})
+	;
+
+
+	</insert>
+  <!-- 删除 -->
+  <delete id="deleteCustoms" parameterType="ssru.myw.agentsystem.entity.Customs" >
+    delete from as_customs
+    <where>
+      <if test="id!=null"> and id=#{id} </if>
+      <if test="agentId!=null"> and agentId=#{agentId} </if>
+      <if test="agentName!=null"> and agentName=#{agentName} </if>
+      <if test="customName!=null"> and customName=#{customName} </if>
+      <if test="customType!=null"> and customType=#{customType} </if>
+      <if test="customTypeName!=null"> and customTypeName=#{customTypeName} </if>
+      <if test="siteUrl!=null"> and siteUrl=#{siteUrl} </if>
+      <if test="customStatus!=null"> and customStatus=#{customStatus} </if>
+      <if test="bossName!=null"> and bossName=#{bossName} </if>
+      <if test="cardType!=null"> and cardType=#{cardType} </if>
+      <if test="cardTypeName!=null"> and cardTypeName=#{cardTypeName} </if>
+      <if test="cardNum!=null"> and cardNum=#{cardNum} </if>
+      <if test="companyTel!=null"> and companyTel=#{companyTel} </if>
+      <if test="companyFax!=null"> and companyFax=#{companyFax} </if>
+      <if test="regDatetime!=null"> and regDatetime=#{regDatetime} </if>
+      <if test="country!=null"> and country=#{country} </if>
+      <if test="province!=null"> and province=#{province} </if>
+      <if test="city!=null"> and city=#{city} </if>
+      <if test="area!=null"> and area=#{area} </if>
+      <if test="companyAddress!=null"> and companyAddress=#{companyAddress} </if>
+      <if test="memo!=null"> and memo=#{memo} </if>
+      <if test="agentCode!=null"> and agentCode=#{agentCode} </if>
+    </where>
+  </delete>
+  <!-- 修改    通过id修改 -->
+  <update id="updateCustoms" parameterType="ssru.myw.agentsystem.entity.Customs" >
+    update as_customs
+    <set>
+      <if test="agentId!=null"> agentId=#{agentId}, </if>
+      <if test="agentName!=null">  agentName=#{agentName} ,</if>
+      <if test="customName!=null">  customName=#{customName}, </if>
+      <if test="customType!=null">  customType=#{customType} ,</if>
+      <if test="customTypeName!=null">  customTypeName=#{customTypeName}, </if>
+      <if test="siteUrl!=null">  siteUrl=#{siteUrl}, </if>
+      <if test="customStatus!=null">  customStatus=#{customStatus} ,</if>
+      <if test="bossName!=null">  bossName=#{bossName}, </if>
+      <if test="cardType!=null">  cardType=#{cardType} ,</if>
+      <if test="cardTypeName!=null">  cardTypeName=#{cardTypeName}, </if>
+      <if test="cardNum!=null">  cardNum=#{cardNum} ,</if>
+      <if test="companyTel!=null">  companyTel=#{companyTel} ,</if>
+      <if test="companyFax!=null">companyFax=#{companyFax} ,</if>
+      <if test="regDatetime!=null">  regDatetime=#{regDatetime} ,</if>
+      <if test="country!=null"> country=#{country} ,</if>
+      <if test="province!=null"> province=#{province} ,</if>
+      <if test="city!=null">  city=#{city} ,</if>
+      <if test="area!=null"> area=#{area}, </if>
+      <if test="companyAddress!=null">  companyAddress=#{companyAddress}, </if>
+      <if test="memo!=null">  memo=#{memo} ,</if>
+      <if test="agentCode!=null"> agentCode=#{agentCode}, </if>
+    </set>
+    where id = #{id};
+  </update>
+</mapper>

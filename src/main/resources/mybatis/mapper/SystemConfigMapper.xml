@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="ssru.myw.agentsystem.dao.SystemConfigMapper" >
+  <resultMap id="SystemConfigDefaultResultMap" type="ssru.myw.agentsystem.entity.SystemConfig" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="configType" property="configType" jdbcType="INTEGER" />
+    <result column="configTypeName" property="configTypeName" jdbcType="VARCHAR" />
+    <result column="configTypeValue" property="configTypeValue" jdbcType="INTEGER" />
+    <result column="configValue" property="configValue" jdbcType="VARCHAR" />
+    <result column="isStart" property="isStart" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, configType, configTypeName, configTypeValue, configValue, isStart
+  </sql>
+  <select id="listSystemConfig" parameterType="ssru.myw.agentsystem.entity.SystemConfig"
+          resultMap="SystemConfigDefaultResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from as_systemconfig
+    <where>
+      <if test="id!=null">
+        and id=#{id}
+      </if>
+      <if test="configType!=null">
+        and configType=#{configType}
+      </if>
+      <if test="configTypeName!=null">
+        and configTypeName=#{configTypeName}
+      </if>
+      <if test="configTypeValue!=null">
+        and configTypeValue=#{configTypeValue}
+      </if>
+      <if test="configValue!=null">
+        and configValue=#{configValue}
+      </if>
+      <if test="isStart!=null">
+        and isStart=#{isStart}
+      </if>
+    </where>
+  </select>
+  <insert id="saveSystemConfig" parameterType="ssru.myw.agentsystem.entity.SystemConfig"
+          useGeneratedKeys="true" keyProperty="id">
+		insert into as_systemconfig (id,
+	configType,
+	configTypeName,
+	configTypeValue,
+	configValue,
+	isStart
+	)
+		values(null,#{configType},#{configTypeName},
+		#{configTypeValue},  #{configValue},#{isStart})
+
+  </insert>
+  <update id="updateSystemConfig" parameterType="ssru.myw.agentsystem.entity.SystemConfig" >
+    update as_systemconfig
+    <set>
+
+      <if test="configType!=null">
+        configType=#{configType},
+      </if>
+      <if test="configTypeName!=null">
+        configTypeName=#{configTypeName},
+      </if>
+      <if test="configTypeValue!=null">
+        configTypeValue=#{configTypeValue},
+      </if>
+      <if test="configValue!=null">
+        configValue=#{configValue},
+      </if>
+      <if test="isStart!=null">
+        isStart=#{isStart} ,
+      </if>
+    </set>
+    where id=#{id}
+  </update>
+  <delete id="deleteSystemConfig" parameterType="ssru.myw.agentsystem.entity.SystemConfig">
+    delete from as_systemconfig
+    <where>
+      <if test="id!=null">
+        and id=#{id}
+      </if>
+      <if test="configType!=null">
+        and configType=#{configType}
+      </if>
+      <if test="configTypeName!=null">
+        and configTypeName=#{configTypeName}
+      </if>
+      <if test="configTypeValue!=null">
+        and configTypeValue=#{configTypeValue}
+      </if>
+      <if test="configValue!=null">
+        and configValue=#{configValue}
+      </if>
+      <if test="isStart!=null">
+        and isStart=#{isStart}
+      </if>
+
+
+    </where>
+
+
+  </delete>
+
+  <select id="getMaxConfigTypeValue" parameterType="Integer" resultType="Integer">
+    SELECT MAX(configtypevalue)+1 AS maxconfigtype FROM `as_systemconfig` WHERE configtype = #{configType}
+  </select>
+
+</mapper>
