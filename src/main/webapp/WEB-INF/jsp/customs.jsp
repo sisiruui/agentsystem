@@ -9,14 +9,13 @@
 	<form action="/customs/list.do" method="post" >
 		 <div>
 			<label>客户名称:</label>
-			<!--  -->
 			  <input type="hidden" id="page" name="page" value="1"/>
 			<input type="text" id="cname" name="cname" value=""/>
 			<input type="submit" value="查询" />
 		  </div>
 	</form>
 	<div class="addCustomDiv">
-	<input onclick="javascript:location.href='/customs/addbefore.do';" type="button" value="添加客户" />
+	<input onclick="javascript:location.href='/customs/toAddPage';" type="button" value="添加客户" />
 	</div>
    <%--<c:choose>--%>
 	  <%--<c:when test="${message == 'fail'}">--%>
@@ -56,8 +55,6 @@
 						</li>
 					</ul>
 				</td>
-
-
 			</tr>
 
 

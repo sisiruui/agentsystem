@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="ssru.myw.agentsystem.dao.AddressMapper">
+    <resultMap id="AreaDefaultResultMap" type="ssru.myw.agentsystem.entity.Area" >
+        <id column="id" property="id" jdbcType="INTEGER" />
+        <result column="areaID" property="areaId" jdbcType="VARCHAR" />
+        <result column="area" property="area" jdbcType="VARCHAR" />
+        <result column="father" property="father" jdbcType="VARCHAR" />
+    </resultMap>
+    <resultMap id="CityDefaultResultMap" type="ssru.myw.agentsystem.entity.City" >
+        <id column="id" property="id" jdbcType="INTEGER" />
+        <result column="cityID" property="cityID" jdbcType="VARCHAR" />
+        <result column="city" property="city" jdbcType="VARCHAR" />
+        <result column="father" property="father" jdbcType="VARCHAR" />
+    </resultMap>
+    <resultMap id="ProvinceDefaultResultMap" type="ssru.myw.agentsystem.entity.Province" >
+        <id column="id" property="id" jdbcType="INTEGER" />
+        <result column="provinceID" property="provinceID" jdbcType="VARCHAR" />
+        <result column="province" property="province" jdbcType="VARCHAR" />
+    </resultMap>
+
+
+    <sql id="Province_Column_List">
+       id, provinceID, province
+    </sql>
+    <sql id="City_Column_List" >
+      id, cityID, city, father
+    </sql>
+    <sql id="Area_Column_List" >
+     id, areaID, area, father
+   </sql>
+
+    <!-- 获取所有的省 -->
+    <select id="listProvince" resultMap="ProvinceDefaultResultMap">
+      select
+      <include refid="Province_Column_List"  />
+      from hat_province
+    </select>
+    <!-- 根据省获取城市 -->
+    <select id="listCity" resultMap="CityDefaultResultMap"
+    parameterType="ssru.myw.agentsystem.entity.Province">
+        select
+        <include refid="City_Column_List"  />
+        from hat_city where father = #{provinceID}
+    </select>
+    <!-- 根据城市获取地区 -->
+    <select id="listArea" resultMap="AreaDefaultResultMap"
+    parameterType="ssru.myw.agentsystem.entity.City">
+        select
+        <include refid="Area_Column_List"  />
+        from hat_area where father = #{cityID}
+
+    </select>
+
+
+    <select id="getProvince" parameterType="String" resultMap="ProvinceDefaultResultMap" >
+		select
+		 <include refid="Province_Column_List"/>
+		 from hat_province where provinceID =#{provinceID};
+
+
+	</select>
+    <select id="getCity" parameterType="String" resultMap="CityDefaultResultMap">
+		select
+        <include refid="City_Column_List"/>
+        from hat_city where cityID =#{cityID};
+	</select>
+
+    <select id="getArea" parameterType="String" resultMap="AreaDefaultResultMap">
+		select
+        <include refid="Area_Column_List"/>
+        from hat_area where areaID =#{areaID};
+	</select>
+</mapper>

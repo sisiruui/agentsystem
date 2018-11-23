@@ -10,4 +10,6 @@ public interface CustomsMapper {
     List<Customs> listCustoms(Customs customs);
 
     Integer countCustoms(Customs customs);
+
+    int saveCustoms(Customs customs);
 }

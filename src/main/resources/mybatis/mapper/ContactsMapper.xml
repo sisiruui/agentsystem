@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="ssru.myw.agentsystem.dao.ContactsMapper">
+    <resultMap id="ContactsDefaultResultMap" type="ssru.myw.agentsystem.entity.Contacts">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="customId" property="customId" jdbcType="BIGINT"/>
+        <result column="contactName" property="contactName" jdbcType="VARCHAR"/>
+        <result column="contactTel" property="contactTel" jdbcType="VARCHAR"/>
+        <result column="contactFax" property="contactFax" jdbcType="VARCHAR"/>
+        <result column="contactEmail" property="contactEmail" jdbcType="VARCHAR"/>
+        <result column="contactRole" property="contactRole" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, customId, contactName, contactTel, contactFax, contactEmail, contactRole
+  </sql>
+    <select id="listContacts" parameterType="ssru.myw.agentsystem.entity.Contacts"
+            resultMap="ContactsDefaultResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from as_contacts
+        <!-- 这要两种查询就好了 -->
+        <where>
+            <if test="id!=null">
+                and id = #{id}
+            </if>
+            <if test="customId!=null">
+                and customId = #{customId}
+            </if>
+        </where>
+    </select>
+    <delete id="deleteContacts" parameterType="ssru.myw.agentsystem.entity.Contacts">
+        <!-- 只提供一个通过id删除的方法即可 -->
+        delete from as_contacts
+        <where>
+            <if test="id!=null">
+                id=#{id}
+            </if>
+            <if test="customId!=null">
+                and customId=#{customId}
+            </if>
+
+        </where>
+    </delete>
+    <update id="updateContacts" parameterType="ssru.myw.agentsystem.entity.Contacts">
+        update as_contacts
+
+        <trim prefix="set" suffixOverrides=",">
+
+            <if test="customId!=null">
+                customId=#{customId},
+            </if>
+            <if test="contactName!=null">
+                contactName=#{contactName},
+            </if>
+            <if test="contactTel!=null">
+                contactTel=#{contactTel},
+            </if>
+            <if test="contactFax!=null">
+                contactFax=#{contactFax},
+            </if>
+            <if test="contactEmail!=null">
+                contactEmail=#{contactEmail},
+            </if>
+            <if test="contactRole!=null">
+                contactRole=#{contactRole},
+            </if>
+
+        </trim>
+        where id=#{id}
+
+    </update>
+    <insert id="saveContacts" parameterType="Contacts">
+		insert into as_contacts values(null,#{customId},#{contactName},#{contactTel},#{contactFax},#{contactEmail},
+		#{contactRole});
+
+
+	</insert>
+
+
+    <insert id="saveListContacts" parameterType="java.util.List">
+        insert into as_contacts values
+--         (null,#{customId},#{contactName},#{contactTel},#{contactFax},#{contactEmail},
+-- 		#{contactRole});
+        <foreach collection="list" item="item" index="index" separator=",">
+            (null,#{item.customId},#{item.contactName},#{item.contactTel},
+            #{item.contactFax},#{item.contactEmail}, #{item.contactRole})
+        </foreach>
+    </insert>
+
+</mapper>

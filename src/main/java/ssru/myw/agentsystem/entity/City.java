@@ -28,7 +28,7 @@ public class City extends Base {
         return cityID;
     }
 
-    public void setCityID(String cityID) {
+        public void setCityID(String cityID) {
         this.cityID = cityID;
     }
 

@@ -100,7 +100,8 @@
 
   </select>
   <!-- 添加 -->
-  <insert id="saveCustoms"  parameterType="ssru.myw.agentsystem.entity.Customs">
+  <insert id="saveCustoms"  parameterType="ssru.myw.agentsystem.entity.Customs"
+          useGeneratedKeys="true" keyProperty="id">
 		insert into as_customs 	(id, agentId, 	agentName, 	customName,
 	customType, customTypeName, 	siteUrl, 	customStatus, 	bossName,
 	cardType, 	cardTypeName, 	cardNum, 	companyTel, 	companyFax,

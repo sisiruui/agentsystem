@@ -64,11 +64,12 @@ public class UserController {
             user.setUserPassword(StringUtil.getInstance().md5(user.getUserPassword().trim()));
             user.setUserCode(user.getUserCode().trim());
             List<User> loginUserList = userService.listUser(user,0,null);
-            User loginUser = loginUserList.get(0);
-            if (ObjectEmpty.getInstance().isNullOrEmpty(loginUser)) {
+
+            if (ObjectEmpty.getInstance().isNullOrEmpty(loginUserList)) {
                 message = "nouser"; // 账户或密码错误
             } else {
                 message = "success"; // 登录成功
+                User loginUser = loginUserList.get(0);
                 loginUser.setUserPassword(""); // 把密码设置为空，避免网页中的session带着密码。
                 // 把登录的用户放到session里面
                 httpSession.setAttribute("user", loginUser);

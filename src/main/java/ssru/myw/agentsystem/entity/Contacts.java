@@ -27,7 +27,7 @@ public class Contacts extends Base{
     private String contactFax;
     /** 用户邮箱 */
     private String contactEmail;
-    /** 用户的职务，跟此表无关，就是一个字符串 */
+    /** 用户的职务， 这个是用户自填的职务，与业务逻辑无关，仅仅是个用户设定的职务。这个可以随意设置 */
     private String contactRole;
 
 

@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface CustomsService {
     List<Customs> listCustoms(Customs customs, PageNumberCareTaker pageNumberCareTaker);
+
+    Integer saveCustoms(Customs customs);
 }

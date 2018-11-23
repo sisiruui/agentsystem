@@ -2,10 +2,12 @@ package ssru.myw.agentsystem.controller;
 
 import com.alibaba.fastjson.JSON;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
+import ssru.myw.agentsystem.entity.Contacts;
 import ssru.myw.agentsystem.entity.Customs;
 import ssru.myw.agentsystem.service.customs.CustomsService;
 import ssru.myw.agentsystem.util.PageNumber;
@@ -25,6 +27,8 @@ import java.util.Map;
 public class CustomsControlller {
     @Autowired
     private CustomsService customsService;
+
+
     @RequestMapping(value = "", method = RequestMethod.GET)
     public ModelAndView toPage(ModelAndView mv) {
         mv.setViewName("customs");
@@ -42,6 +46,31 @@ public class CustomsControlller {
         map.put("pageNumber", pageNumber);
         return JSON.toJSONString(map);
     }
+    @RequestMapping(value = "/toAddPage", method = RequestMethod.GET)
+    public ModelAndView toAddPage(ModelAndView mv) {
+        mv.setViewName("addcustom");
+        return mv;
+    }
+    @PostMapping("")
+    public String saveCustoms(Customs customs) {
+        String returnMessage = "";
+        Integer mybatisReturn = customsService.saveCustoms(customs);
+
+
+
+
+
+
+
+
+
+
+
+
+
+        return "";
+    }
+
 
 
 }

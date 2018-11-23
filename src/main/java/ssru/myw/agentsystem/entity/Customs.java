@@ -3,56 +3,100 @@ package ssru.myw.agentsystem.entity;
 import com.alibaba.fastjson.annotation.JSONField;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * @date:
  * @date: 2018/11/03
- *
  */
-public class Customs extends Base{
-    /** 代理商id */
+public class Customs extends Base {
+    /**
+     * 代理商id
+     */
     private Integer agentId;
-    /** 代理商的名称 */
+    /**
+     * 代理商的名称
+     */
     private String agentName;
-    /** 代理商的编码 */
-    private String  agentCode;
-    /** 企业名称 */
+    /**
+     * 代理商的编码
+     */
+    private String agentCode;
+    /**
+     * 企业名称
+     */
     private String customName;
-    /** 企业类型 值 */
+    /**
+     * 企业类型 值
+     */
     private Integer customType;
-    /** 企业类型名称 */
+    /**
+     * 企业类型名称
+     */
     private String customTypeName;
-    /** 企业主页 */
+    /**
+     * 企业主页
+     */
     private String siteUrl;
-    /** 状态 */
+    /**
+     * 状态
+     */
     private Integer customStatus;
-    /** 法人 */
+    /**
+     * 法人
+     */
     private String bossName;
-    /** 证件类型 */
+    /**
+     * 证件类型
+     */
     private Integer cardType;
-    /** 证件类型值 */
+    /**
+     * 证件类型值
+     */
     private String cardTypeName;
-    /** 证件号码 */
+    /**
+     * 证件号码
+     */
     private String cardNum;
-    /** 电话 */
+    /**
+     * 电话
+     */
     private String companyTel;
-    /** 传真 */
+    /**
+     * 传真
+     */
     private String companyFax;
-    /** 时间 */
-    @JSONField(format="yyyy-MM-dd hh:mm:ss")
+    /**
+     * 时间
+     */
+    @JSONField(format = "yyyy-MM-dd hh:mm:ss")
     private Date regDatetime;
-    /** 国家 */
+    /**
+     * 国家
+     */
     private String country;
-    /** 省 */
+    /**
+     * 省
+     */
     private String province;
-    /** 市 */
+    /**
+     * 市
+     */
     private String city;
-    /** 区 */
+    /**
+     * 区
+     */
     private String area;
-    /** 地址 */
+    /**
+     * 地址
+     */
     private String companyAddress;
-    /** 备注 */
+    /**
+     * 备注
+     */
     private String memo;
+
+    private List<Contacts> list;
 
     @Override
     public String toString() {
@@ -249,8 +293,11 @@ public class Customs extends Base{
         this.memo = memo;
     }
 
+    public List<Contacts> getList() {
+        return list;
+    }
 
-
-
-
+    public void setList(List<Contacts> list) {
+        this.list = list;
+    }
 }
