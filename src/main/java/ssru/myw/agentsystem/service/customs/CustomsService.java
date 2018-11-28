@@ -9,4 +9,8 @@ public interface CustomsService {
     List<Customs> listCustoms(Customs customs, PageNumberCareTaker pageNumberCareTaker);
 
     Integer saveCustoms(Customs customs);
+
+    Customs getCustoms(Customs customs);
+
+    int updateCustoms(Customs customs);
 }

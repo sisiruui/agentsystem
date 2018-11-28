@@ -88,9 +88,8 @@ var v = new Vue({
             }
             this.PageNumberList.thePage = number;
             // 这个方法是把当前的页码传入搜索类
-            this.search.thePage = value;
-            this.methodtoPageUpdate(number);
-
+            this.search.thePage = number;
+            this.methodtoPageUpdate();
         },
         /**
          * 需要修改
@@ -98,13 +97,23 @@ var v = new Vue({
          * 需要修改
          * @param value
          */
-        methodtoPageUpdate : function (value) { // 分页元素5
+        methodtoPageUpdate : function () { // 分页元素5
             // 这个方法是重新调用列表类
-            this.methodsListUser();
+            this.methodListCustoms();
+        },
+        methodToViewCustoms: function (id) {
+            // 获得需要查看的id 根据id跳转页面
+            window.location.href = "/customs/id/" + id;
+        },
+        methodToUpdateCustoms: function (id) {
+            window.location.href = "/customs/view/" + id;
         }
 
 
-	}
+	},
+    mounted() {
+        this.methodListCustoms()
+    }
 })
 // /** 代理商id */
 // private Integer agentId;
@@ -148,4 +157,3 @@ var v = new Vue({
 // private String companyAddress;
 // /** 备注 */
 // private String memo;
-v.methodListCustoms()

@@ -19,14 +19,13 @@ var v = new Vue({
             companyTel: "",
             companyFax: "",
             regDatetime: "",
-            country: "",
+            country: "中国",
             province: "",
             city: "",
             area: "",
             companyAddress: "",
             memo: "",
             list: []
-
         },
 
         typeOfServiceSystem:[],
@@ -96,8 +95,6 @@ var v = new Vue({
                 .catch(function (error) {
                     console.log(error);
                 });
-
-
         },
         /** 获取所有的省 */
         methodGetAllProvice() {
@@ -141,40 +138,65 @@ var v = new Vue({
             } else if (this.customs.customType == 0) {
                 humane.error("请选择企业类型!!!");
                 return false;
-
             } else { // 才可以执行添加
+                if (0 != this.customs.customType) {
+                    for (var i = 0; i < this.typeOfServiceSystem.length; i++) {
+                        var systemConfig = this.typeOfServiceSystem[i];
+                        if (systemConfig.id == this.customs.customType) {
+                            this.customs.customTypeName = systemConfig.configTypeName;
+                        }
+                    }
+                }
+                if (0 != this.customs.cardType) {
+                    for (var i = 0; i < this.idTypeSystemConfig.length; i++) {
+                        var systemConfig = this.idTypeSystemConfig[i];
+                        if (systemConfig.id == this.customs.cardType) {
+                                    this.customs.cardTypeName = systemConfig.configTypeName;
+                        }
+                    }
+                }
+
+
+
+
                 var self = this;
-                self.customs.list;
+                self.customs.list = self.listContacts;
                 var paramsMessage = self.customs;
                 axios({
-                    method: "GET",
-                    url: "/user/",
-                    params: paramsMessage
+                    method: "post",
+                    url: "/customs",
+                    data: paramsMessage
                 })
                     .then(function (response) {
-                        data = JSON.parse(response.data);
-                        if (data == "success") {
-                            self.isok.message1 = true;
-                            self.message.message1 = "您的密码输入正确。"
+                        console.log(response)
+                        data =response.data;
+                        if ("exception" == data) {
+                            humane.error("添加失败，请检查您的数据。");
+                        } else if ("failure" == data) {
+                            humane.error("添加失败，请检查您的数据。");
                         } else {
-                            self.message.message1 = "您的密码输入错误!!!"
+                            humane.error("添加成功，即将跳转。");
+                            // 跳转到列表页面
+                            window.location.href = '/customs';
                         }
                     })
                     .catch(function (error) {
                         console.log(error);
                     });
-
-
             }
-
-
-        }
-
+        },
     },
     mounted(){
         this.methodGetClientType();
         this.methodGetIdType();
         this.methodGetAllProvice();
+        var mountedSelf = this;
+        laydate.render({
+            elem: '#laydate', //指定元素
+            done: function (value) {
+                 mountedSelf.customs.regDatetime = value;
+            },
+        });
     },
     watch: {
         // 当省发生变化的时候要把该省所有的市查出来
@@ -222,14 +244,10 @@ var v = new Vue({
                 .catch(function (error) {
                     console.log(error);
                 });
-        }
-
-
-
+        },
     }
 
 })
-
 
 
 

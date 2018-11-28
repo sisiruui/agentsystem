@@ -72,19 +72,45 @@
     <insert id="saveContacts" parameterType="Contacts">
 		insert into as_contacts values(null,#{customId},#{contactName},#{contactTel},#{contactFax},#{contactEmail},
 		#{contactRole});
-
-
 	</insert>
 
 
     <insert id="saveListContacts" parameterType="java.util.List">
         insert into as_contacts values
---         (null,#{customId},#{contactName},#{contactTel},#{contactFax},#{contactEmail},
--- 		#{contactRole});
         <foreach collection="list" item="item" index="index" separator=",">
             (null,#{item.customId},#{item.contactName},#{item.contactTel},
             #{item.contactFax},#{item.contactEmail}, #{item.contactRole})
         </foreach>
     </insert>
+    <select id="listContactsId" parameterType="Integer" resultType="Integer">
+        SELECT id FROM as_contacts WHERE customId = #{customsId};
+    </select>
+
+    <update id="updateListContacts" parameterType="java.util.List">
+        <foreach collection="list" item="item" index="index" separator=";">
+            update as_contacts
+            <set>
+                <if test="item.customId!=null">
+                    customId=#{item.customId},
+                </if>
+                <if test="item.contactName!=null">
+                    contactName=#{item.contactName},
+                </if>
+                <if test="item.contactTel!=null">
+                    contactTel=#{item.contactTel},
+                </if>
+                <if test="item.contactFax!=null">
+                    contactFax=#{item.contactFax},
+                </if>
+                <if test="item.contactEmail!=null">
+                    contactEmail=#{item.contactEmail},
+                </if>
+                <if test="item.contactRole!=null">
+                    contactRole=#{item.contactRole},
+                </if>
+            </set>
+            where id = #{item.id}
+        </foreach>
+    </update>
 
 </mapper>

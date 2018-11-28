@@ -1,7 +1,7 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@include file="/inc/head.jsp" %>
-<script language="javascript" type="text/javascript" src="/My97DatePicker/WdatePicker.js"></script>  
+<script language="javascript" type="text/javascript" src="/My97DatePicker/WdatePicker.js"></script>
 <div class="mbxnav">
 	<a href="/main.action">代理商管理</a> \ <a href="/customlist.action">代理商客户管理</a> \ <a href="/addcustom.action?custom.id=<s:property value='custom.id'/>">添加客户信息</a>
 </div>
@@ -30,15 +30,16 @@
 	<div class="info2">
 		<ul>
 			<li>法人代表：<input type="text" v-model.trim="customs.bossName" name="custom.bossName"/></li>
-			<li>注册日期：<input class="Wdate" class='laydate' id="regdate" size="15"  v-model.trim="customs.regDatetime" name="custom.regDatetime" value="" readonly="readonly"  type="text"   /></li>
+			<li>注册日期：<input type="text" id="laydate" size="15"  v-model.trim="customs.regDatetime" value=""
+			/></li>
 			<li>证件类型：<input id="cardtypename" type="hidden" name="custom.cardTypeName" v-model.trim="customs.cardTypeName" value=""/>
-			<select id="selectcardtype" name="custom.cardType" v-model.trim="customs.cardType">
+				<select id="selectcardtype" name="custom.cardType" v-model.trim="customs.cardType">
         	 		<option value="0" selected="selected">--请选择--</option>
 					<option v-for="syscfg in idTypeSystemConfig" :value="syscfg.id">{{ syscfg.configTypeName }}</option>
-
-			</select></li>
+				</select>
+			</li>
 			<li>证件号码：<input id="card_num" type="text" v-model.trim="customs.cardNum" name="custom.cardNum"/></li>
-			<li>国家：<input type="text" name="custom.country" v-model.trim="customs.country" value="中国" /></li>
+			<li>国家：<input type="text" name="custom.country" v-model.trim="customs.country" value="中国" disabled  /></li>
 			<li>省/地区：<select id="selectprovince" v-model.trim="customs.province" name="custom.province">
         	 		<option value="0" selected="selected">--请选择--</option>
 					<option v-for="oneprovince in province" :value="oneprovince.provinceID">{{oneprovince.province}}</option>
@@ -56,7 +57,7 @@
 			<li>区：
 			<select id="selectarea" name="custom.area" v-model.trim="customs.area" >
         	 		<option value="0" selected="selected">--请选择--</option>
-					<option v-for="onearea in area" :value="onearea.areaID">{{onearea.area}}</option>
+					<option v-for="onearea in area" :value="onearea.areaId">{{onearea.area}}</option>
 
 			</select>
 			<li>公司地址：<input type="text" name="custom.companyAddress" v-model.trim="customs.companyAddress"/></li>
@@ -92,14 +93,11 @@
 
 					<td><a href="javascript:void(0);" @click="removeContact(index, contact.id)" >删除</a></td>
 				</tr>
-
-
             </tbody>
           </table>
-
 	</div>
 	<input type="hidden" name="superString" id="superString"> 
-	<div class="goback"><input type="submit" value="保存" /> <input type="button" onclick="window.history.back(-1);" value="返回" /> </div>
+	<div class="goback"><input type="button" value="保存" @click="methodAddCustoms()" /> <input type="button" onclick="window.history.back(-1);" value="返回" /> </div>
 
 
 </form>
@@ -109,9 +107,14 @@
 	
 </div>
 <script src="/laydate/laydate.js"></script> <!-- 改成你的路径 -->
+
+
+
 <link id='theme' rel='stylesheet' href='/css/addcustom.css'/>
 <script type="text/javascript" src="/js/addcustom.js" charset="UTF-8"></script> 
-<script type="text/javascript" src="/medire/WdatePicker.js"></script>
+<script >
+
+</script>
 <jsp:include page="/inc/foot.jsp"></jsp:include>
 </body>
 </html>

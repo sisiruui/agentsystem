@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import ssru.myw.agentsystem.entity.Area;
 import ssru.myw.agentsystem.entity.City;
 import ssru.myw.agentsystem.entity.Province;
 import ssru.myw.agentsystem.service.address.AddressService;
@@ -56,6 +57,26 @@ public class AddressController {
         list = addressService.listArea(city);
         return JSON.toJSONString(list);
     }
+    @GetMapping("/province/provinceID")
+    public String getProvince(String provinceID) {
+        Province province = new Province();
+        province = addressService.getProvince(provinceID);
 
+        return JSON.toJSONString(province);
+    }
+    @GetMapping("/city/cityID")
+    public String getCity(String cityID) {
+        City city = new City();
+        city = addressService.getCity(cityID);
+
+        return JSON.toJSONString(city);
+    }
+    @GetMapping("/area/areaID")
+    public String getArea(String areaID) {
+        Area area = new Area();
+        area = addressService.getArea(areaID);
+
+        return JSON.toJSONString(area);
+    }
 
 }

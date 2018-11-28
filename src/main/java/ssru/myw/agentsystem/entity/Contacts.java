@@ -18,7 +18,7 @@ public class Contacts extends Base{
      ) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
      */
     /** 代理商id */
-    private Long customId;
+    private Integer customId;
     /** 用户姓名 */
     private String contactName;
     /** 用户电话 */
@@ -31,11 +31,11 @@ public class Contacts extends Base{
     private String contactRole;
 
 
-    public Long getCustomId() {
+    public int getCustomId() {
         return customId;
     }
 
-    public void setCustomId(Long customId) {
+    public void setCustomId(int customId) {
         this.customId = customId;
     }
 
@@ -77,5 +77,17 @@ public class Contacts extends Base{
 
     public void setContactRole(String contactRole) {
         this.contactRole = contactRole;
+    }
+
+    @Override
+    public String toString() {
+        return super.toString() + "Contacts{" +
+                "customId=" + customId +
+                ", contactName='" + contactName + '\'' +
+                ", contactTel='" + contactTel + '\'' +
+                ", contactFax='" + contactFax + '\'' +
+                ", contactEmail='" + contactEmail + '\'' +
+                ", contactRole='" + contactRole + '\'' +
+                '}';
     }
 }

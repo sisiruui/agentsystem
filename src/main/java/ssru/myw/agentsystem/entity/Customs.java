@@ -300,4 +300,6 @@ public class Customs extends Base {
     public void setList(List<Contacts> list) {
         this.list = list;
     }
+
+
 }

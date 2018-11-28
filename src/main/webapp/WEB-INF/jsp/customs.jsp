@@ -44,8 +44,8 @@
 
 				<td class="funcli">
 					<ul>
-						<li><a class="viewCustom"  >查看</a></li>
-						<li><a class="modifyCustom"   >修改</a></li>
+						<li><a class="viewCustom" @click="methodToViewCustoms(item.id)"  >查看</a></li>
+						<li><a class="modifyCustom" @click="methodToUpdateCustoms(item.id)" >修改</a></li>
 
 						<li v-if="item.customStatus == 1">
 							<a class="modifyCustomStatus"  ><span color="green">启用</span></a></li>
@@ -100,7 +100,7 @@
 </div>
 </div>
 <link id='theme' rel='stylesheet' href='/css/customlist.css'/>
-<script type="text/javascript" src="/js/customlist.js" charset="UTF-8"></script> 
+		<script type="text/javascript" src="/js/customlist.js" charset="UTF-8"></script>
 <jsp:include page="/inc/foot.jsp"></jsp:include>
 </body>
 </html>

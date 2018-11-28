@@ -12,4 +12,6 @@ public interface CustomsMapper {
     Integer countCustoms(Customs customs);
 
     int saveCustoms(Customs customs);
+
+    int updateCustoms(Customs customs);
 }

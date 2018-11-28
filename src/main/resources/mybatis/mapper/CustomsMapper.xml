@@ -110,8 +110,7 @@
 	#{customType},#{customTypeName},	#{siteUrl},#{customStatus},#{bossName},
 	#{cardType},#{cardTypeName},#{cardNum},#{companyTel},#{companyFax},
 	#{regDatetime},#{country},#{province},#{city},#{area},#{companyAddress},#{memo}
-	,#{agentCode})
-	;
+	,#{agentCode});
 
 
 	</insert>
