@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="ssru.myw.agentsystem.dao.KeywordsMapper" >
+  <resultMap id="KeywordsDefaultResultMap" type="ssru.myw.agentsystem.entity.Keywords" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="keywords" property="keywords" jdbcType="VARCHAR" />
+    <result column="agentId" property="agentId" jdbcType="BIGINT" />
+    <result column="agentName" property="agentName" jdbcType="VARCHAR" />
+    <result column="customId" property="customId" jdbcType="BIGINT" />
+    <result column="customName" property="customName" jdbcType="VARCHAR" />
+    <result column="preRegFrozenMoney" property="preRegFrozenMoney" jdbcType="DOUBLE" />
+    <result column="price" property="price" jdbcType="DOUBLE" />
+    <result column="productType" property="productType" jdbcType="INTEGER" />
+    <result column="serviceYears" property="serviceYears" jdbcType="INTEGER" />
+    <result column="openApp" property="openApp" jdbcType="INTEGER" />
+    <result column="appUserName" property="appUserName" jdbcType="VARCHAR" />
+    <result column="appPassword" property="appPassword" jdbcType="VARCHAR" />
+    <result column="loginUrl" property="loginUrl" jdbcType="VARCHAR" />
+    <result column="iosDownloadUrl" property="iosDownloadUrl" jdbcType="VARCHAR" />
+    <result column="androidDownloadUrl" property="androidDownloadUrl" jdbcType="VARCHAR" />
+    <result column="codeIosUrl" property="codeIosUrl" jdbcType="VARCHAR" />
+    <result column="codeAndroidUrl" property="codeAndroidUrl" jdbcType="VARCHAR" />
+    <result column="preRegDatetime" property="preRegDatetime" jdbcType="TIMESTAMP" />
+    <result column="preRegPassDatetime" property="preRegPassDatetime" jdbcType="TIMESTAMP" />
+    <result column="regDatetime" property="regDatetime" jdbcType="TIMESTAMP" />
+    <result column="regPassDatetime" property="regPassDatetime" jdbcType="TIMESTAMP" />
+    <result column="isPass" property="isPass" jdbcType="INTEGER" />
+    <result column="checkStatus" property="checkStatus" jdbcType="INTEGER" />
+    <result column="isUse" property="isUse" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, keywords, agentId, agentName, customId, customName, preRegFrozenMoney, price, 
+    productType, serviceYears, openApp, appUserName, appPassword, loginUrl, iosDownloadUrl, 
+    androidDownloadUrl, codeIosUrl, codeAndroidUrl, preRegDatetime, preRegPassDatetime, 
+    regDatetime, regPassDatetime, isPass, checkStatus, isUse
+  </sql>
+  <select id="listKeywords" parameterType="ssru.myw.agentsystem.entity.Keywords"
+        resultMap="KeywordsDefaultResultMap">
+      select
+      <include refid="Base_Column_List" />
+      from as_keywords
+    <where>
+      <if test="id!=null"> id= #{id} </if>
+      <if test="keywords!=null"> and keywords like concat('%' ,#{keywords},'%')  </if>
+      <if test="agentId!=null"> and agentId = #{agentId} </if>
+      <if test="agentName!=null"> and agentName = #{agentName} </if>
+      <if test="customId!=null"> and customId= #{customId} </if>
+      <if test="customName!=null"> and customName = #{customName} </if>
+      <if test="preRegFrozenMoney!=null"> and preRegFrozenMoney = #{preRegFrozenMoney} </if>
+      <if test="price!=null"> and price = #{price} </if>
+      <if test="productType!=null"> and productType = #{productType} </if>
+      <if test="serviceYears!=null"> and serviceYears = #{serviceYears} </if>
+      <if test="openApp!=null"> and openApp = #{openApp} </if>
+      <if test="appUserName!=null"> and appUserName = #{appUserName} </if>
+      <if test="appPassword!=null"> and appPassword = #{appPassword} </if>
+      <if test="loginUrl!=null"> and loginUrl = #{loginUrl} </if>
+      <if test="iosDownloadUrl!=null"> and iosDownloadUrl = #{iosDownloadUrl} </if>
+      <if test="androidDownloadUrl!=null"> and androidDownloadUrl = #{androidDownloadUrl} </if>
+      <if test="codeIosUrl!=null"> and codeIosUrl = #{codeIosUrl} </if>
+      <if test="codeAndroidUrl!=null"> and codeAndroidUrl = #{codeAndroidUrl} </if>
+      <if test="preRegDatetime!=null"> and preRegDatetime = #{preRegDatetime} </if>
+      <if test="preRegPassDatetime!=null"> and preRegPassDatetime = #{preRegPassDatetime} </if>
+      <if test="regDatetime!=null"> and regDatetime = #{regDatetime} </if>
+      <if test="regPassDatetime!=null"> and regPassDatetime = #{regPassDatetime} </if>
+      <if test="isPass!=null"> and isPass = #{isPass} </if>
+      <if test="checkStatus!=null"> and checkStatus = #{checkStatus} </if>
+      <if test="isUse!=null"> and isUse = #{isUse} </if>
+    </where>
+    order by id desc
+    <if test="starNum!=null and pageSize !=null">
+      limit #{starNum},#{pageSize}
+    </if>
+  </select>
+  <!-- 通过id删除 -->
+  <delete id="deleteKeywords" parameterType="ssru.myw.agentsystem.entity.Keywords"><!-- 先写一个通过id删除 别的用到了再添加 -->
+    delete from as_keywords where id = #{id}
+  </delete>
+  <update id="updateKeywords" parameterType="ssru.myw.agentsystem.entity.Keywords"><!-- 通过id修改任何数据 -->
+    update as_keywords
+    <set>
+      <trim suffixOverrides=",">
+        <if test="keywords!=null">keywords = #{keywords} ,</if>
+        <if test="agentId!=null">agentId = #{agentId} ,</if>
+        <if test="agentName!=null">agentName = #{agentName} ,</if>
+        <if test="customId!=null">customId= #{customId} ,</if>
+
+        <if test="customName!=null">customName = #{customName} ,</if>
+
+        <if test="preRegFrozenMoney!=null">preRegFrozenMoney = #{preRegFrozenMoney} ,</if>
+        <if test="price!=null">price = #{price} ,</if>
+        <if test="productType!=null">productType = #{productType} ,</if>
+        <if test="serviceYears!=null">serviceYears = #{serviceYears} ,</if>
+
+        <if test="openApp!=null">openApp = #{openApp} ,</if>
+        <if test="appUserName!=null">appUserName = #{appUserName} ,</if>
+        <if test="appPassword!=null">appPassword = #{appPassword} ,</if>
+        <if test="loginUrl!=null">loginUrl = #{loginUrl} ,</if>
+        <if test="iosDownloadUrl!=null">iosDownloadUrl = #{iosDownloadUrl} ,</if>
+        <if test="androidDownloadUrl!=null">androidDownloadUrl = #{androidDownloadUrl} ,</if>
+        <if test="codeIosUrl!=null">codeIosUrl = #{codeIosUrl} ,</if>
+        <if test="codeAndroidUrl!=null">codeAndroidUrl = #{codeAndroidUrl} ,</if>
+        <if test="preRegDatetime!=null">preRegDatetime = #{preRegDatetime} ,</if>
+        <if test="preRegPassDatetime!=null">preRegPassDatetime = #{preRegPassDatetime} ,</if>
+        <if test="regDatetime!=null">regDatetime = #{regDatetime} ,</if>
+        <if test="regPassDatetime!=null">regPassDatetime = #{regPassDatetime} ,</if>
+        <if test="isPass!=null">isPass = #{isPass} ,</if>
+        <if test="checkStatus!=null">checkStatus = #{checkStatus} ,</if>
+        <if test="isUse!=null">isUse = #{isUse} ,</if>
+      </trim>
+
+    </set>
+    where id = #{id};
+  </update>
+
+  <insert id="saveKeywords" parameterType="ssru.myw.agentsystem.entity.Keywords">
+		INSERT INTO as_keywords
+		(id,
+		keywords, agentId, agentName, customId, customName,
+		preRegFrozenMoney,
+		price, productType, serviceYears,
+		openApp, appUserName, appPassword,
+		loginUrl, iosDownloadUrl,
+		androidDownloadUrl, codeIosUrl,
+		codeAndroidUrl, preRegDatetime,
+		preRegPassDatetime, regDatetime,
+		regPassDatetime, isPass,
+		checkStatus, isUse ) VALUES
+		(#{id},#{keywords},#{ agentId},#{ agentName},#{
+		customId},#{
+		customName},#{
+		preRegFrozenMoney},#{ price},#{ productType},#{
+		serviceYears},#{
+		openApp},#{ appUserName},#{ appPassword},#{
+		loginUrl},#{ iosDownloadUrl},#{
+		androidDownloadUrl},#{ codeIosUrl},#{
+		codeAndroidUrl},#{preRegDatetime},#{
+		preRegPassDatetime},#{
+		regDatetime},#{ regPassDatetime},#{ isPass},#{
+		checkStatus},#{ isUse});
+	</insert>
+  <select id="count" parameterType="ssru.myw.agentsystem.entity.Keywords" resultType="Integer">
+    select
+    count(1)
+    from as_keywords
+    <where>
+      <if test="id!=null"> id= #{id} </if>
+      <if test="keywords!=null"> and keywords = #{keywords} </if>
+      <if test="agentId!=null"> and agentId = #{agentId} </if>
+      <if test="agentName!=null"> and agentName = #{agentName} </if>
+      <if test="customId!=null"> and customId= #{customId} </if>
+      <if test="customName!=null"> and customName = #{customName} </if>
+      <if test="preRegFrozenMoney!=null"> and preRegFrozenMoney = #{preRegFrozenMoney} </if>
+      <if test="price!=null"> and price = #{price} </if>
+      <if test="productType!=null"> and productType = #{productType} </if>
+      <if test="serviceYears!=null"> and serviceYears = #{serviceYears} </if>
+      <if test="openApp!=null"> and openApp = #{openApp} </if>
+      <if test="appUserName!=null"> and appUserName = #{appUserName} </if>
+      <if test="appPassword!=null"> and appPassword = #{appPassword} </if>
+      <if test="loginUrl!=null"> and loginUrl = #{loginUrl} </if>
+      <if test="iosDownloadUrl!=null"> and iosDownloadUrl = #{iosDownloadUrl} </if>
+      <if test="androidDownloadUrl!=null"> and androidDownloadUrl = #{androidDownloadUrl} </if>
+      <if test="codeIosUrl!=null"> and codeIosUrl = #{codeIosUrl} </if>
+      <if test="codeAndroidUrl!=null"> and codeAndroidUrl = #{codeAndroidUrl} </if>
+      <if test="preRegDatetime!=null"> and preRegDatetime = #{preRegDatetime} </if>
+      <if test="preRegPassDatetime!=null"> and preRegPassDatetime = #{preRegPassDatetime} </if>
+      <if test="regDatetime!=null"> and regDatetime = #{regDatetime} </if>
+      <if test="regPassDatetime!=null"> and regPassDatetime = #{regPassDatetime} </if>
+      <if test="isPass!=null"> and isPass = #{isPass} </if>
+      <if test="checkStatus!=null"> and checkStatus = #{checkStatus} </if>
+      <if test="isUse!=null"> and isUse = #{isUse} </if>
+    </where>
+
+
+  </select>
+
+
+
+</mapper>

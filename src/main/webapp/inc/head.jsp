@@ -122,9 +122,9 @@
 <div class="subbox">
     <ul class="smenu">
         <li style="padding-left:10px;" id="s_1" class='s_li_a'>
-            <a href="/keywords/addbefore.do" title="关键词申请">关键词申请</a>
+            <a href="/keywords/page" title="关键词申请">关键词申请</a>
             <a href="/customs" title="代理商客户管理">代理商客户管理</a>
-            <a href="/AccountDetail/list/page.do?page=1" title="代理商预付款">代理商预付款</a>
+            <a href="/accountdetail/page" title="代理商预付款">代理商预付款</a>
             <a href="/keywords/manage.do?page=1" title="关键词申请管理">关键词申请管理</a>
             <a href="/logs/logslist.do?page=1" title="操作日志">操作日志</a>
         </li>

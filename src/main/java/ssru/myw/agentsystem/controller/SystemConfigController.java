@@ -117,7 +117,10 @@ public class SystemConfigController {
     }
 
 
-
+    /**
+     * 登录界面的方法
+     * @return
+     */
     @RequestMapping(value = "/financial/json", method = RequestMethod.GET)
     public String toLoginPage( ) {
 

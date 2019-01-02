@@ -60,6 +60,10 @@ session 失效
         <if test="null != pageStartNum and null != pageSize">
            limit #{pageStartNum}, #{pageSize}
         </if>
+几张大表的关系:
+    首先是user表，这个表是登录的账户，user有不同的身份，可以是管理员，但更多的是代理商。
+    然后是代理商客户customs的表，这个表的是 当前代理商所创建的客户表。 在customs表中，所有与agent有关的信息，就是与user表的关联
+        由于customs表对创建客户无任何意义
 
 
 

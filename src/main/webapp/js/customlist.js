@@ -107,8 +107,38 @@ var v = new Vue({
         },
         methodToUpdateCustoms: function (id) {
             window.location.href = "/customs/view/" + id;
-        }
+        },
+        methodChangeStateOpen: function (id, value, index) {
 
+            var self = this;
+            var paramsMessage = {
+                "id":id,
+                "customStatus": value
+            };
+            axios({
+                method: "put",
+                url: "/customs/state",
+                data: paramsMessage
+            })
+                .then(function (response) {
+                    data = response.data;
+                    if (data == "success") {
+                        self.items[index].customStatus = value;
+                    } else {
+                        humane.error("修改失败。");
+                    }
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+
+
+        },
+
+        methodNameSearch() {
+            this.methodListCustoms();
+
+        }
 
 	},
     mounted() {

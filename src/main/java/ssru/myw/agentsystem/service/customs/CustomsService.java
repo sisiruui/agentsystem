@@ -13,4 +13,9 @@ public interface CustomsService {
     Customs getCustoms(Customs customs);
 
     int updateCustoms(Customs customs);
+
+    int updateCustomsState(Customs customs);
+
+
+    List<Customs> listCustomsTopTen(Customs customs);
 }

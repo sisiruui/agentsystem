@@ -155,10 +155,6 @@ var v = new Vue({
                         }
                     }
                 }
-
-
-
-
                 var self = this;
                 self.customs.list = self.listContacts;
                 var paramsMessage = self.customs;

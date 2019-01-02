@@ -10,8 +10,8 @@
 		 <div>
 			<label>客户名称:</label>
 			  <input type="hidden" id="page" name="page" value="1"/>
-			<input type="text" id="cname" name="cname" value=""/>
-			<input type="submit" value="查询" />
+			<input type="text" id="cname" name="cname" v-model.trim="search.customName" value=""/>
+			<input type="button" value="查询" @click="methodNameSearch()" />
 		  </div>
 	</form>
 	<div class="addCustomDiv">
@@ -48,10 +48,11 @@
 						<li><a class="modifyCustom" @click="methodToUpdateCustoms(item.id)" >修改</a></li>
 
 						<li v-if="item.customStatus == 1">
-							<a class="modifyCustomStatus"  ><span color="green">启用</span></a></li>
+							<a class="modifyCustomStatus"  ><span color="red" @click="methodChangeStateOpen(item.id, 0, index)">停用</span></a></li>
 						</li>
 						<li v-else>
-							<a class="modifyCustomStatus"  ><span color="red">停用</span></a></li>
+							<a class="modifyCustomStatus"  ><span color="green" @click="methodChangeStateOpen(item.id, 1, index)">启用</span></a></li>
+
 						</li>
 					</ul>
 				</td>

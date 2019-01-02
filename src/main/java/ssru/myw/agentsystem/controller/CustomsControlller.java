@@ -121,6 +121,45 @@ public class CustomsControlller {
         returnMessage = customsService.updateCustoms(customs);
         return StringUtil.getInstance().mybatisReturnMessage(returnMessage, null);
     }
+    @PutMapping("/state")
+    public String updateState(@RequestBody Customs customs) {
+        int returnMessage = 0;
+        try {
+            returnMessage = customsService.updateCustomsState(customs);
+        } catch (Exception e) {
+            e.printStackTrace();
+            returnMessage = -1;
+        } finally {
+        }
+
+
+        return StringUtil.getInstance().mybatisReturnMessage(returnMessage, null);
+    }
+
+    /**
+     * 根据名称获取前10的customs
+     * 这里的逻辑是，登录的用户只能查询到管理到自己的customs
+     * 从前台根据 customs 的 customsName 来查询当前的与该名称相似的集合。
+     * @return
+     */
+    @GetMapping("/top")
+    public String listCustomsTopTen(Customs customs, HttpSession session) {
+        customs.setPageStartNum(0);
+        customs.setPageSize(10);
+
+        // 当前的代理商应该只能查询到他添加的用户，如果不需要这个逻辑，则要删除这段话 -----------
+        User loginUser = new User();
+        loginUser = (User) session.getAttribute("user");
+        customs.setAgentId(loginUser.getId());
+        // -------------------如果不需要此段逻辑的话，就把此段删除---------------------
+
+        // 传过来的必须是customsName
+        List<Customs> list = new ArrayList<>();
+        list = customsService.listCustomsTopTen(customs);
+        return JSON.toJSONString(list);
+
+    }
+
 
 
 }

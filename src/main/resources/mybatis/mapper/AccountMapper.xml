@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="ssru.myw.agentsystem.dao.AccountMapper">
+    <resultMap id="DefaultAccountResultMap" type="ssru.myw.agentsystem.entity.Account" >
+        <id column="id" property="id" jdbcType="BIGINT" />
+        <result column="userId" property="userId" jdbcType="BIGINT" />
+        <result column="money" property="money" jdbcType="DOUBLE" />
+        <result column="moneyBak" property="moneyBak" jdbcType="DOUBLE" />
+    </resultMap>
+    <!-- 查所有 -->
+    <sql id="Base_Column_List" >
+     id, userId, money, moneyBak
+    </sql>
+    <!-- 这个只能通过id来查才有意义， // 把list变成get -->
+    <select id="listAccount" parameterType="Integer" resultMap="DefaultAccountResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from as_account
+        <where>
+            <if test="userId != null">
+                userid = ${userId}
+            </if>
+        </where>
+    </select>
+    <!-- 由于只有通过id才有意义，直接提供一个通过id的方法 -->
+    <select id="getAccountByUserId" parameterType="Integer" resultMap="DefaultAccountResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from as_account where userid = #{userId}
+    </select>
+
+
+    <insert id="saveAccount" parameterType="ssru.myw.agentsystem.entity.Account">
+        insert into as_account(userId,money,moneyBak) values (#{userId},#{money},#{moneyBak})
+    </insert>
+    <update id="updateAccount" parameterType="ssru.myw.agentsystem.entity.Account">
+        update as_account
+        <set>
+            <if test="money != null and moneyBak != null">
+                money=money+${money},
+                moneyBak=moneyBak+${moneyBak},
+
+            </if>
+        </set>
+        where userId = #{userId}
+    </update>
+    <!-- 这个只能通过id删除，不用那么多的判断了 -->
+    <delete id="deleteAccount" parameterType="ssru.myw.agentsystem.entity.Account">
+        delete from as_account where id = #{id}
+    </delete>
+
+</mapper>

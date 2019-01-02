@@ -172,4 +172,15 @@ public class CustomsServiceImpl implements CustomsService{
 
 
     }
+    @Transactional(propagation= Propagation.REQUIRED,isolation= Isolation.DEFAULT,readOnly=false)
+    @Override
+    public int updateCustomsState(Customs customs) {
+        return customsMapper.updateCustoms(customs);
+    }
+
+    @Override
+    @Transactional(propagation= Propagation.REQUIRED,isolation= Isolation.DEFAULT,readOnly=false)
+    public List<Customs> listCustomsTopTen(Customs customs) {
+        return customsMapper.listCustoms(customs);
+    }
 }
